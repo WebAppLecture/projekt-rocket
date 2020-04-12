@@ -6,9 +6,11 @@ Leitung: Dr. Friedrich Wünsch, Louis Ritzkowski
 
 # Projektname #
 
-Manuel Mustermann, Marta Musterfrau, Mo Mustermensch
+Flappy Birds 2.0
 
 ### Beschreibung ###
+
+Bei "Flappy Birds 2.0" handelt es sich um eine Erweiterung des Klassikers "Flappy Birds", in der sich die Hindernisse teils zusätzlich bewegen, wodurch das Spiel zu einer größeren Herausforderung wird als sein Vorgänger.
 
 ### Umsetzung ###
 
