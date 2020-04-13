@@ -79,6 +79,8 @@ export class Player extends Movable_Rect_Obstacle
     {
         super.update();
         this.vy += .7;
+
+        if(this.y < 0) this.y = 0;
     }
 
     draw(ctx)

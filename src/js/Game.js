@@ -13,6 +13,9 @@ export class Game
         this.gameOver = true;
         this.player = new Player(200, this.screen.height + 10, 0, 0);
 
+        this.background_image = new Background_Image_Handler(0, 100, screen.width, screen.height);
+        this.background_image.draw(this.ctx);
+
         //this.setup_controls();
     }
 
@@ -43,6 +46,8 @@ export class Game
     {   
         this.obstacles = [];
         this.obstacle_selector = new Obstacle_Selector(this.screen.width, this.screen.height);
+
+        this.background_image.x = 0;
 
         this.player = new Player(200, 300, 70, 70);
         this.gameOver = false;
@@ -78,11 +83,16 @@ export class Game
         {
             this.obstacles.shift();
         }
+
+        this.background_image.update();
     }
 
     draw_obstacles()
     {
         this.ctx.clearRect(0, 0, this.width, this.height);
+
+        this.background_image.draw(this.ctx);
+
         this.ctx.beginPath();
         this.obstacles.forEach(obstacle => obstacle.draw(this.ctx));
 
@@ -126,5 +136,51 @@ export class Obstacle_Selector
         }
 
         return new Normal_Pipe(this.screen_width, 0, 400, this.screen_height, -3, 310, 90)
+    }
+}
+
+export class Background_Image_Handler
+{
+    constructor(x, y, screen_width, screen_height)
+    {
+        this.x = x;
+        this.y = y;
+        this.screen_width = screen_width;
+        this.screen_height = screen_height;
+
+        this.load_image();
+    }
+
+    load_image()
+    {
+        this.img = document.querySelector("#backgroundimage");
+        if(this.img === undefined || !this.img.complete || this.img.naturalWidth === 0)
+        {
+            console.log("Hintergrund konnte nicht geladen werden!");
+            this.loaded = false;
+            return;
+        }
+        this.loaded = true;
+        this.width = this.img.width;
+    }
+
+    update()
+    {
+        this.x -= .5;
+        if(this.x + this.width < 0)
+        {
+            this.x = 0;
+        }
+    }
+
+    draw(ctx)
+    {
+        if(!this.loaded) return;
+
+        ctx.drawImage(this.img, this.x, this.y);
+        if(this.x + this.width < this.screen_width)
+        {
+            ctx.drawImage(this.img, this.x + this.width, this.y);
+        }
     }
 }

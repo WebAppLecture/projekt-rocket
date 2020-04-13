@@ -7,6 +7,10 @@ body {
     width: 800px;
     height: 600px;
     text-align: center;
-    background-color: lightblue;
+    background-color: rgb(52, 206, 224);
     border: medium solid black;
+}
+
+#backgroundimage {
+    display: none;
 }
