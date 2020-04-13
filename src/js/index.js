@@ -19,6 +19,7 @@ import { Game } from "./Game.js";
 
 console.log("Starte...")
 let game = new Game(document.querySelector("#gameCanvas"));
-game.start_game();
+
+document.querySelector("body").addEventListener("keydown", event => game.onKeyDown(event));
 
 console.log("Fertig mit Spiel!");
