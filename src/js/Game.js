@@ -1,4 +1,4 @@
-import {Normal_Pipe, Player, Up_And_Down_Pipe} from "./Obstacle.js"
+import {Normal_Pipe, Player, Up_And_Down_Pipe, Corridor_Pipe} from "./Obstacle.js"
 
 export class Game
 {
@@ -130,12 +130,13 @@ export class Obstacle_Selector
     next()
     {
         this.obstacle_count++;
-        if(!(this.obstacle_count%8))
+        if(!(this.obstacle_count%2))
         {
-            return new Up_And_Down_Pipe(this.screen_width, 0, 400, this.screen_height, -3, 310, 90);
+            return new Corridor_Pipe(this.screen_width, 0, 800, this.screen_height, -3, 310, 90);
+            //return new Up_And_Down_Pipe(this.screen_width, 0, 400, this.screen_height, -3, 310, 90);
         }
 
-        return new Normal_Pipe(this.screen_width, 0, 400, this.screen_height, -3, 310, 90)
+        return new Normal_Pipe(this.screen_width, 0, 400, this.screen_height, -3, 310, 90);
     }
 }
 
