@@ -102,16 +102,29 @@ export class Background_Image_Handler extends Image_Container
 
 export class TextContainer extends Container
 {
-    constructor(x, y, text, font)
+    constructor(x, y, width, height, text, font, font_color, background)
     {
         super(x, y);
+        this.height = height;
+        this.width = width;
         this.text = text;
         this.font = font;
+        this.font_color = font_color;
+        this.background = background
     }
 
     draw(ctx)
     {
+        if(this.background)
+        {
+            ctx.fillStyle = this.background;
+            ctx.fillRect(this.x, this.y, this.width, this.height);
+        }
+
+        ctx.fillStyle = this.font_color;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
         ctx.font = this.font;
-        ctx.fillText(this.text, this.x, this.y);
+        ctx.fillText(this.text, this.x + this.width/2, this.y + this.height/2);
     }
 }

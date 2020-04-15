@@ -10,12 +10,25 @@
         <img src="src/data/bird_up.png" id="birdup" class="gamesprite"/>
 
         <header>
-            <h2>Flappy Bird 2.0</h2>
-            <h4>Drück die Leertaste, um mit dem Spiel zu beginnen!</h4>
+            <h1>Flappy Bird 2.0</h1>
         </header>
 
         <div id="gamediv">
+            <div class="rohrteil horizontal aufsatz_neben_canvas" id="aufsatz_links"></div>
+            <div class="rohrteil horizontal rohr_neben_canvas" id="rohr_links"></div>
             <canvas id="gamecanvas" width="800" height="600"></canvas>
+            <div class="rohrteil horizontal rohr_neben_canvas" id="rohr_rechts"></div>
+            <div class="rohrteil horizontal aufsatz_neben_canvas" id="aufsatz_rechts"></div>
+        </div>
+
+        <div id="rohruntercanvas">
+
+            <div class="rohrteil vertikal" id ="rohr_aufsatz_canvas">
+                <h1>Drücke die Leertaste, um mit dem Spiel zu beginnen!</h1>
+            </div> <br>
+            <div class="rohrteil vertikal" id="rohr_canvas"></div> <br>
+            <div class="rohrteil horizontal" id="trenner"></div>
+
         </div>
 
     </body>
