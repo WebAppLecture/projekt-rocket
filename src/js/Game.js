@@ -1,5 +1,6 @@
-import {Normal_Pipe, Player, Up_And_Down_Pipe, Corridor_Pipe, Closing_Pipe} from "./Obstacle.js"
-import {Background_Image_Handler} from "./Image_Container.js"
+import {Player} from "./Obstacle.js"
+import {Background_Image_Handler} from "./Container.js"
+import {Normal_Pipe, Up_And_Down_Pipe, Corridor_Pipe, Closing_Pipe} from "./Pipes.js"
 
 export class Game
 {
@@ -50,7 +51,7 @@ export class Game
 
         this.background_image.x = 0;
 
-        this.player = new Player(200, 300, 70, 70);
+        this.player = new Player(200, 300, 70, 49);
         this.gameOver = false;
 
         this.gameloop();
