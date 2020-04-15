@@ -1,4 +1,5 @@
-import {Normal_Pipe, Player, Up_And_Down_Pipe, Corridor_Pipe} from "./Obstacle.js"
+import {Normal_Pipe, Player, Up_And_Down_Pipe, Corridor_Pipe, Closing_Pipe} from "./Obstacle.js"
+import {Background_Image_Handler} from "./Image_Container.js"
 
 export class Game
 {
@@ -28,7 +29,7 @@ export class Game
     {
         //console.log("Eingabe registriert: \"" + event.key + "\"!");
 
-        console.log(this.player.y + " " + this.screen.height + " " + this.gameOver);
+        //console.log(this.player.y + " " + this.screen.height + " " + this.gameOver);
 
         if(event.key === " " || event.key === "Spacebar")
         {
@@ -71,14 +72,20 @@ export class Game
     {
         this.player.update();
 
-        if(this.gameOver) return;
+        if(this.gameOver)
+        {
+            this.player.vx = 3;
+             return;
+        }
 
         if(this.obstacles.length === 0 || this.obstacles[this.obstacles.length - 1].completly_shown(this.screen.width))
         {
             this.obstacles.push(this.obstacle_selector.next());
+            console.log("added new Pipes!");
         }
         this.obstacles.forEach(obstacle => obstacle.update(this.ctx));
 
+        //console.log(this.obstacles[0].out_of_screen() + " " + this.obstacles[0].x +" " + this.obstacles[0].width);
         if(this.obstacles[0].out_of_screen())
         {
             this.obstacles.shift();
@@ -129,59 +136,16 @@ export class Obstacle_Selector
 
     next()
     {
-        this.obstacle_count++;
-        if(!(this.obstacle_count%2))
+        if(!(++this.obstacle_count%2))
         {
-            return new Corridor_Pipe(this.screen_width, 0, 800, this.screen_height, -3, 310, 90);
-            //return new Up_And_Down_Pipe(this.screen_width, 0, 400, this.screen_height, -3, 310, 90);
+            switch(Math.floor(Math.random()*3))
+            {
+                case 0: return new Corridor_Pipe(this.screen_width, 0, 800, this.screen_height, -3, 310, 90);
+                case 1: return new Up_And_Down_Pipe(this.screen_width, 0, 400, this.screen_height, -3, 310, 90);
+                case 2: return new Closing_Pipe(this.screen_width, 0, 400, this.screen_height, -3, 310, 200);
+            }
         }
 
         return new Normal_Pipe(this.screen_width, 0, 400, this.screen_height, -3, 310, 90);
-    }
-}
-
-export class Background_Image_Handler
-{
-    constructor(x, y, screen_width, screen_height)
-    {
-        this.x = x;
-        this.y = y;
-        this.screen_width = screen_width;
-        this.screen_height = screen_height;
-
-        this.load_image();
-    }
-
-    load_image()
-    {
-        this.img = document.querySelector("#backgroundimage");
-        if(this.img === undefined || !this.img.complete || this.img.naturalWidth === 0)
-        {
-            console.log("Hintergrund konnte nicht geladen werden!");
-            this.loaded = false;
-            return;
-        }
-        this.loaded = true;
-        this.width = this.img.width;
-    }
-
-    update()
-    {
-        this.x -= .5;
-        if(this.x + this.width < 0)
-        {
-            this.x = 0;
-        }
-    }
-
-    draw(ctx)
-    {
-        if(!this.loaded) return;
-
-        ctx.drawImage(this.img, this.x, this.y);
-        if(this.x + this.width < this.screen_width)
-        {
-            ctx.drawImage(this.img, this.x + this.width, this.y);
-        }
     }
 }

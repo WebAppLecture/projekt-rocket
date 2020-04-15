@@ -6,11 +6,13 @@ Leitung: Dr. Friedrich Wünsch, Louis Ritzkowski
 
 # Projektname #
 
-Flappy Birds 2.0
+Flappy Bird 2.0
+
+von Stefan Vocht (2120306)
 
 ### Beschreibung ###
 
-Bei "Flappy Birds 2.0" handelt es sich um eine Erweiterung des Klassikers "Flappy Birds", in der sich die Hindernisse teils zusätzlich bewegen, wodurch das Spiel zu einer größeren Herausforderung wird als sein Vorgänger.
+Bei "Flappy Bird 2.0" handelt es sich um eine Erweiterung des Klassikers "Flappy Bird", in der sich die Hindernisse teils zusätzlich bewegen, wodurch das Spiel zu einer größeren Herausforderung wird als sein Vorgänger.
 
 ### Umsetzung ###
 

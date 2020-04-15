@@ -73,6 +73,14 @@ export class Player extends Movable_Rect_Obstacle
     constructor(x, y, width, height)
     {
         super(x, y, width, height, 0, 0);
+
+        this.load_player_sprites();
+    }
+
+    load_player_sprites()
+    {
+        this.player_sprites = [];
+        this.player_sprites
     }
 
     update()
@@ -169,90 +177,7 @@ export class Up_And_Down_Pipe extends Generell_Pipe
 
 }
 
-//Zwei Rohrpaare, die verbunden sind, sodass der Spieler 
-//eine zeitlang in der Bewegung eingeschränkt ist
-/*export class Corridor_Pipe extends Generell_Pipe
-{
-    constructor(x, y, width, height, vx, dist_to_predecessor, hole_width)
-    {
-        super(x, y, width, height, vx, 0, dist_to_predecessor, hole_width, "orange", "orange");
-    }
-
-    make_upper_and_lower_pipe(x, y, width, height, vx, vy, dist_to_predecessor, hole_width, upper_color, lower_color)
-    {
-        super.make_upper_and_lower_pipe(x, y, width, height, vx, vy, dist_to_predecessor, hole_width, upper_color, lower_color);
-        this.generate_corridor(x, y, width, height, vx, vy, dist_to_predecessor, hole_width, upper_color, lower_color);
-    }
-
-    generate_corridor(x, y, width, height, vx, vy, dist_to_predecessor, hole_width, upper_color, lower_color)
-    {
-        this.corridor_end_upper_pipe = new Pipe_Part(x + width - Pipe_Part.pipe_width, y - 10, this.hole_position - hole_width, vx, "upper", upper_color);
-        this.corridor_end_lower_pipe = new Pipe_Part(x + width - Pipe_Part.pipe_width, y + this.hole_position + hole_width, y + height, vx, "lower", lower_color);
-
-        this.corridor_upper_wall = new Movable_Rect_Obstacle(x + dist_to_predecessor + Pipe_Part.pipe_width - 10,
-                                                            this.hole_position - hole_width - 40 - Pipe_Part.pipe_width,
-                                                            width - dist_to_predecessor - 2*Pipe_Part.pipe_width + 20,
-                                                            Pipe_Part.pipe_width - 20,
-                                                            vx, vy);
-        this.corridor_lower_wall = new Movable_Rect_Obstacle(x + dist_to_predecessor + Pipe_Part.pipe_width - 10,
-                                                            this.hole_position + hole_width + 50,
-                                                            width - dist_to_predecessor - 2*Pipe_Part.pipe_width + 20,
-                                                            Pipe_Part.pipe_width - 20,
-                                                            vx, vy);
-    }
-
-    update()
-    {
-        super.update();
-        this.corridor_end_upper_pipe.update();
-        this.corridor_end_lower_pipe.update();
-
-        this.corridor_lower_wall.update();
-        this.corridor_upper_wall.update();
-    }
-
-    draw(ctx)
-    {
-        super.draw(ctx);
-        this.corridor_end_upper_pipe.draw(ctx);
-        this.corridor_end_lower_pipe.draw(ctx);
-
-        this.draw_corridor_wall(ctx, this.corridor_upper_wall);
-        this.draw_corridor_wall(ctx, this.corridor_lower_wall);
-    }
-
-    draw_corridor_wall(ctx, wall)
-    {
-        ctx.fillStyle = this.make_wall_gradient(ctx, wall.x, wall.y, wall.y + wall.height);
-        ctx.fillRect(wall.x, wall.y, wall.width, wall.height);
-        ctx.rect(wall.x, wall.y, wall.width, wall.height);
-    }
-
-    make_wall_gradient(ctx, x, y, height)
-    {
-        let grad = ctx.createLinearGradient(x, y, x, height);
-
-        grad.addColorStop(0, "orange");
-        grad.addColorStop(.2, "LightGray");
-        grad.addColorStop(1, "orange");
-
-        return grad;
-    }
-
-    collision(rect)
-    {
-        return super.collision(rect) || this.corridor_collision(rect);
-    }
-
-    corridor_collision(rect)
-    {
-        return (this.corridor_end_lower_pipe.collision(rect) 
-                || this.corridor_end_upper_pipe.collision(rect)
-                || this.corridor_lower_wall.collision(rect)
-                || this.corridor_upper_wall.collision(rect));
-    }
-}*/
-
+//Rohrpaare, die direkt verbunden sind und einen Gang bilden
 export class Corridor_Pipe extends Generell_Pipe
 {
     constructor(x, y, width, height, vx, dist_to_predecessor, hole_width)
@@ -261,12 +186,10 @@ export class Corridor_Pipe extends Generell_Pipe
     }
 
     make_upper_and_lower_pipe(x, y, width, height, vx, vy, dist_to_predecessor, hole_width, upper_color, lower_color, hole_position)
-    {
-        super.make_upper_and_lower_pipe(x, y, width, height, vx, vy, dist_to_predecessor, hole_width, upper_color, lower_color);
-        
+    { 
         this.corridor_pipes = [];
 
-        for(let i = x + dist_to_predecessor + Pipe_Part.pipe_width; i < x + width; i  += Pipe_Part.pipe_width)
+        for(let i = x + dist_to_predecessor; i < x + width; i += Pipe_Part.pipe_width)
         {
             this.corridor_pipes.push(new Generell_Pipe(i, y, Pipe_Part.pipe_width, height, vx, vy, 0, hole_width, upper_color, lower_color, hole_position));
         }
@@ -274,26 +197,74 @@ export class Corridor_Pipe extends Generell_Pipe
 
     update()
     {
-        super.update();
+        Movable_Rect_Obstacle.prototype.update.apply(this);
         this.corridor_pipes.forEach(pipe => pipe.update());
     }
 
     draw(ctx)
     {
-        super.draw(ctx);
         this.corridor_pipes.forEach(pipe => pipe.draw(ctx));
     }
 
     collision(rect)
     {
-        if(super.collision(rect)) return true;
-
         for(let pipe of this.corridor_pipes)
         {
-            if(pipe.collision(rect)) return true;
+            if(pipe.collision(rect))
+            {
+                return true;
+            }
         }
 
         return false;
+    }
+}
+
+//Rohrpaar das sich einseitig zufällig schließt
+export class Closing_Pipe extends Generell_Pipe
+{
+    constructor(x, y, width, height, vx, dist_to_predecessor, hole_width)
+    {
+        super(x, y, width, height, vx, 0, dist_to_predecessor, hole_width, "red", "green", height/2);
+
+        this.inactive_pipe = this.lower_pipe;
+        if(Math.random() < .5)
+        {
+            this.swap_pipe_colors();
+        }
+    }
+
+    update()
+    {
+        super.update();
+
+        if(this.x > 170)
+        {
+            if(!(this.x%20))
+            {
+                this.swap_pipe_colors();
+            }
+        }
+        else{
+            if(this.inactive_pipe === this.upper_pipe)
+            {
+                this.lower_pipe.vy = -2;
+            }
+            else{
+                this.upper_pipe.height += 2;
+            }
+
+        }
+    }
+
+    swap_pipe_colors()
+    {
+        console.log("switch");
+        this.upper_pipe.color = this.upper_pipe.color === "red"? "green" : "red";
+        this.lower_pipe.color = this.lower_pipe.color === "red"? "green" : "red";
+
+
+        this.inactive_pipe = this.inactive_pipe == this.upper_pipe? this.lower_pipe : this.upper_pipe;
     }
 }
 
