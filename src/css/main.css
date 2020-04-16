@@ -37,6 +37,9 @@ header {
 
     border: medium solid black;
     display: inline-block;
+
+    font-size: 35px;
+    font-family: "Impact";
 }
 
 .vertikal {
@@ -63,7 +66,7 @@ header {
     width: 600px;
     height : 300px;
 
-    border-top: 0px;
+    border-top: 0;
     border-bottom: 0;
 }
 
@@ -146,3 +149,37 @@ header {
     100%{transform: translate(0, 0);}
 }
 
+
+.difficulty_col {
+    width: 31%;
+    height: 100%;
+    display: inline-block;
+}
+
+.difficulty_aufsatz {
+    width: 80%;
+    height:20%;
+    margin-top: 10%;
+
+    transform: translate(0, 200%);
+    z-index: 2;
+    transition: 1s;
+}
+
+.difficulty_rohr {
+    width: 55%;
+    height: 60%;
+    border-top: 0;
+    transform: translate(0, 50%);
+    transition: 1s;
+}
+
+
+.difficulty_col:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.difficulty_active {
+    transform: translate(0, 0);
+    background: linear-gradient(90deg, red 50%, LightGray 90%, red 100%);
+}

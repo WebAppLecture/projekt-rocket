@@ -6,6 +6,7 @@ export class Game
 {
     constructor(screen)
     {
+        this.pipe_hole_dist = 90;
         this.screen = screen;
         this.ctx = this.screen.getContext("2d");
 
@@ -68,6 +69,22 @@ export class Game
 
     }
 
+    change_difficulty(difficulty)
+    {
+        switch(difficulty)
+        {
+            case "einfach":
+                 this.pipe_hole_dist = 140;
+                 break;
+            case "mittel":
+                this.pipe_hole_dist = 90;
+                break;
+            case "schwer":
+                this.pipe_hole_dist = 75;
+                break;
+        }
+    }
+
     setup_score_display(x, y, width, height)
     {
         let grad = this.ctx.createRadialGradient(x, y + height/2, 0, x, y + height/2, width/2);
@@ -104,7 +121,7 @@ export class Game
 
         if(this.obstacles.length === 0 || this.obstacles[this.obstacles.length - 1].completly_shown(this.screen.width))
         {
-            this.obstacles.push(this.obstacle_selector.next());
+            this.obstacles.push(this.obstacle_selector.next(this.pipe_hole_dist));
             console.log("added new Pipes!");
         }
         this.obstacles.forEach(obstacle => obstacle.update(this.ctx));
@@ -166,18 +183,18 @@ export class Obstacle_Selector
         this.obstacle_count = 0;
     }
 
-    next()
+    next(pipe_hole_dist)
     {
         if(!(++this.obstacle_count%2))
         {
             switch(Math.floor(Math.random()*3))
             {
-                case 0: return new Corridor_Pipe(this.screen_width, 0, 800, this.screen_height, -3, 310, 90);
-                case 1: return new Up_And_Down_Pipe(this.screen_width, 0, 400, this.screen_height, -3, 310, 90);
-                case 2: return new Closing_Pipe(this.screen_width, 0, 400, this.screen_height, -3, 310, 200);
+                case 0: return new Corridor_Pipe(this.screen_width, 0, 800, this.screen_height, -3, 310, pipe_hole_dist);
+                case 1: return new Up_And_Down_Pipe(this.screen_width, 0, 400, this.screen_height, -3, 310, pipe_hole_dist);
+                case 2: return new Closing_Pipe(this.screen_width, 0, 400, this.screen_height, -3, 310, pipe_hole_dist + 110);
             }
         }
 
-        return new Normal_Pipe(this.screen_width, 0, 400, this.screen_height, -3, 310, 90);
+        return new Normal_Pipe(this.screen_width, 0, 400, this.screen_height, -3, 310, pipe_hole_dist);
     }
 }
