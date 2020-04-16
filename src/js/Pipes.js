@@ -1,5 +1,7 @@
 import {Movable_Rect_Obstacle} from "./Obstacle.js";
 
+
+//Grundgerüst für die verschiedenen Röhrenarten
 export class Generell_Pipe extends Movable_Rect_Obstacle
 {
     constructor(x, y, width, height, vx, vy, dist_to_predecessor, hole_width, upper_color, lower_color, hole_position)
@@ -194,10 +196,7 @@ export class Pipe_Part extends Movable_Rect_Obstacle
         ctx.lineWidth = "2";
         ctx.fillStyle = this.create_pipe_gradient(ctx, this.x + 10, main_pipe_y, this.x + Pipe_Part.pipe_width - 10);
         ctx.fillRect(this.x + 10, main_pipe_y, this.width - 20, this.height - 40);
-        //ctx.beginPath()
         ctx.rect(this.x + 10, main_pipe_y, this.width - 20, this.height - 40);
-        //ctx.stroke();
-
 
         let pipe_end_y = this.type === "upper" ?  this.y + this.height - 40: this.y; 
 

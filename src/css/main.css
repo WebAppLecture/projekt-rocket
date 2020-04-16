@@ -101,39 +101,13 @@ header {
     margin-bottom: 0px;
 }
 
-/*#rohre_links {
-    animation: animation_rohr_links 2s normal linear infinite;
-}
-
-#rohre_rechts {
-    animation: animation_rohr_rechts 2s normal linear infinite;
-}*/
-
-#aufsatz_links {
+#aufsatze_links {
     animation: animation_aufsatz_links 1.8s normal linear infinite;
 }
 
-#aufsatz_rechts{
+#aufsatze_rechts{
     animation: animation_aufsatz_rechts 1.8s normal linear infinite;
 }
-
-/*@keyframes animation_rohr_links {
-    0%{width: 300px;
-        transform : translate(0, 0);}
-    25%{width : 350px;
-        transform : translate(-50px, 0);}
-    75%{width : 250px;
-        transform : translate(50px, 0);}
-    100%{width:300px;
-        transform: translate(0, 0) ;}
-}
-
-@keyframes animation_rohr_rechts {
-    0%{width: 300px;}
-    25%{width : 250px;}
-    75%{width : 350px;}
-    100%{width:300px;}
-}*/
 
 @keyframes animation_aufsatz_links {
     0%{transform : translate(0, 0);}

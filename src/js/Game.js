@@ -6,7 +6,6 @@ export class Game
 {
     constructor(screen)
     {
-        this.pipe_hole_dist = 90;
         this.screen = screen;
         this.ctx = this.screen.getContext("2d");
 
@@ -23,20 +22,12 @@ export class Game
         this.gameOverScreen = new GameOverScreen(250, 50, 300, 300);
 
         new TextContainer(100, 50, 600, 35, "Drücke die Leertaste, um mit dem Spiel zu beginnen!", "25px Impact", "LightGray").draw(this.ctx);
-    }
 
-    setup_controls()
-    {
-        window.addEventListener("keydown", this.onKeyDown.bind(this));
+        this.pipe_hole_dist = 90; //entspricht mittlerer Schwierigkeit
     }
 
     onKeyDown(event)
     {
-        //console.log("Eingabe registriert: \"" + event.key + "\"!");
-
-        //console.log(this.player.y + " " + this.screen.height + " " + this.gameOver);
-
-        
         if(event.key === " " || event.key === "Spacebar")
         {
             event.preventDefault();
@@ -60,7 +51,7 @@ export class Game
 
         this.background_image.x = 0;
 
-        this.player = new Player(200, 300, 70, 49);
+        this.player = new Player(200, 300, 50, 49);
         this.gameOver = false;
         this.score_display.text = 0;
         this.gameOverScreen.update(0);
@@ -90,7 +81,6 @@ export class Game
         let grad = this.ctx.createRadialGradient(x, y + height/2, 0, x, y + height/2, width/2);
         grad.addColorStop(0, "LightGray");
         grad.addColorStop(1, "brown");
-
 
         this.score_display = new TextContainer(x - width/2, y, width, height, 0, "30px Impact", "black", grad);
     }
@@ -132,7 +122,6 @@ export class Game
             this.gameOverScreen.update(++this.score_display.text)
         }
 
-        //console.log(this.obstacles[0].out_of_screen() + " " + this.obstacles[0].x +" " + this.obstacles[0].width);
         if(this.obstacles[0].out_of_screen())
         {
             this.obstacles.shift();

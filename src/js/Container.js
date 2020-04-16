@@ -53,10 +53,8 @@ export class Image_Container extends Container
             ctx.translate(this.x + this.width / 2, this.y + this.height / 2);
             ctx.rotate(rotation);
             ctx.drawImage(this.img, -this.width/2, -this.height/2);
-            //ctx.rect(0, 0, this.width, this.height);
             ctx.rotate(-rotation);
             ctx.translate(-this.x - this.width / 2, -this.y - this.height / 2);
-            //ctx.rect(this.x, this.y, this.width, this.height);
         }
     }
 

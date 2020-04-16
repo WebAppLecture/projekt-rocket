@@ -100,11 +100,12 @@ export class Player extends Movable_Rect_Obstacle
     draw(ctx)
     {
         let akt_img = this.player_sprites[Math.floor(this.sprite_counter/4)];
-        akt_img.change_position(this.x, this.y);
+        akt_img.change_position(this.x-10, this.y);
         akt_img.draw(ctx, this.rotation);
         this.sprite_counter = (this.sprite_counter + 1)%16;
 
-        //ctx.rect(this.x, this.y, this.width, this.height);
+        /*ctx.rect(this.x, this.y, this.width, this.height);
+        ctx.stroke();*/
     }
 
     jump()
