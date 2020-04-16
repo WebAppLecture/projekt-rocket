@@ -101,11 +101,11 @@ header {
     margin-bottom: 0px;
 }
 
-#aufsatze_links {
+#aufsatz_links {
     animation: animation_aufsatz_links 1.8s normal linear infinite;
 }
 
-#aufsatze_rechts{
+#aufsatz_rechts{
     animation: animation_aufsatz_rechts 1.8s normal linear infinite;
 }
 
