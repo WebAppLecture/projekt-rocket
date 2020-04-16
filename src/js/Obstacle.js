@@ -104,7 +104,7 @@ export class Player extends Movable_Rect_Obstacle
         akt_img.draw(ctx, this.rotation);
         this.sprite_counter = (this.sprite_counter + 1)%16;
 
-        ctx.rect(this.x, this.y, this.width, this.height);
+        //ctx.rect(this.x, this.y, this.width, this.height);
     }
 
     jump()

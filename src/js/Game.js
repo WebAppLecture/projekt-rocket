@@ -133,9 +133,9 @@ export class Game
         this.ctx.beginPath();
         this.obstacles.forEach(obstacle => obstacle.draw(this.ctx));
 
-        this.player.draw(this.ctx);
-
         this.ctx.stroke();
+
+        this.player.draw(this.ctx);
 
         this.score_display.draw(this.ctx);
     }

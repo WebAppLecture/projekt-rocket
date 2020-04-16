@@ -154,14 +154,14 @@ export class GameOverScreen extends Container
     {
         this.gameOverScreen_elements = [];
 
-        this.gameOverScreen_elements.push(new TextContainer(this.x, this.y, this.width, this.height/3, "Game Over", "35px Impact", "white"));
-        this.gameOverScreen_elements.push(new TextContainer(this.x, this.y + this.height/3, this.width/2, this.height/3, "Score:", "25px Impact", "white"));
-        this.gameOverScreen_elements.push(new TextContainer(this.x + this.width/2, this.y + this.height/3, this.width/2, this.height/3, 0, "25px Impact", "white"));
-        this.gameOverScreen_elements.push(new TextContainer(this.x, this.y + 2 * this.height/3, this.width/2, this.height/3, "Highscore:", "25px Impact", "white"));
-        this.gameOverScreen_elements.push(new TextContainer(this.x + this.width/2, this.y + 2 * this.height/3, this.width/2, this.height/3, 0, "25px Impact", "white"));
+        this.gameOverScreen_elements.push(new TextContainer(this.x, this.y, this.width, this.height/3, "Game Over", "45px Impact", "white"));
+        this.gameOverScreen_elements.push(new TextContainer(this.x, this.y + this.height/3, this.width/2, this.height/3, "Score:", "30px Impact", "white"));
+        this.gameOverScreen_elements.push(new TextContainer(this.x + this.width/2, this.y + this.height/3, this.width/2, this.height/3, 0, "30px Impact", "white"));
+        this.gameOverScreen_elements.push(new TextContainer(this.x, this.y + 2 * this.height/3, this.width/2, this.height/3, "Highscore:", "30px Impact", "white"));
+        this.gameOverScreen_elements.push(new TextContainer(this.x + this.width/2, this.y + 2 * this.height/3, this.width/2, this.height/3, 0, "30px Impact", "white"));
 
         this.gameOverScreen_elements.push(new TextContainer(this.x + this.width/2 - 300, this.y + this.height + 100, 600, 45,
-                                        "Drücke die Leertaste für einen neuen Versuch!", "25px Impact", "LightGray", "#FF6100"));
+                                        "Drücke die Leertaste für einen neuen Versuch!", "25px Impact", "white", "#FF6100"));
     }
 
     update(score)
