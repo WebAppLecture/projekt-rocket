@@ -205,6 +205,8 @@ export class Pipe_Part extends Movable_Rect_Obstacle
         ctx.fillRect(this.x, pipe_end_y, Pipe_Part.pipe_width, 40);
         ctx.rect(this.x, pipe_end_y, Pipe_Part.pipe_width, 40);
 
+        //ctx.stroke();
+
         //Hitbox anzeige
         //ctx.rect(this.x, this.y, this.width, this.height);
         

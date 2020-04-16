@@ -117,8 +117,13 @@ export class TextContainer extends Container
     {
         if(this.background)
         {
+            ctx.beginPath();
+            ctx.lineWidth = 5;
+            ctx.rect(this.x, this.y, this.width, this.height);
+            ctx.stroke();
             ctx.fillStyle = this.background;
             ctx.fillRect(this.x, this.y, this.width, this.height);
+            ctx.closePath();
         }
 
         ctx.fillStyle = this.font_color;
@@ -126,5 +131,62 @@ export class TextContainer extends Container
         ctx.textBaseline = "middle";
         ctx.font = this.font;
         ctx.fillText(this.text, this.x + this.width/2, this.y + this.height/2);
+    }
+}
+
+export class GameOverScreen extends Container
+{
+    constructor(x, y, width, height)
+    {
+        super(x, y);
+        this.change_position(x, y, width, height);
+        this.setup_screen();
+    }
+    
+    change_position(x, y, width, height)
+    {
+        super.change_position(x, y);
+        this.width = width || this.width;
+        this.height = height || this.height;
+    }
+
+    setup_screen()
+    {
+        this.gameOverScreen_elements = [];
+
+        this.gameOverScreen_elements.push(new TextContainer(this.x, this.y, this.width, this.height/3, "Game Over", "35px Impact", "white"));
+        this.gameOverScreen_elements.push(new TextContainer(this.x, this.y + this.height/3, this.width/2, this.height/3, "Score:", "25px Impact", "white"));
+        this.gameOverScreen_elements.push(new TextContainer(this.x + this.width/2, this.y + this.height/3, this.width/2, this.height/3, 0, "25px Impact", "white"));
+        this.gameOverScreen_elements.push(new TextContainer(this.x, this.y + 2 * this.height/3, this.width/2, this.height/3, "Highscore:", "25px Impact", "white"));
+        this.gameOverScreen_elements.push(new TextContainer(this.x + this.width/2, this.y + 2 * this.height/3, this.width/2, this.height/3, 0, "25px Impact", "white"));
+
+        this.gameOverScreen_elements.push(new TextContainer(this.x + this.width/2 - 300, this.y + this.height + 100, 600, 45,
+                                        "Drücke die Leertaste für einen neuen Versuch!", "25px Impact", "LightGray", "#FF6100"));
+    }
+
+    update(score)
+    {
+        score *= 1;
+
+        if(score > this.gameOverScreen_elements[4].text)
+        {
+            this.gameOverScreen_elements[4].text = score;
+        }
+
+        this.gameOverScreen_elements[2].text = score;
+    }   
+
+    draw(ctx)
+    {
+        ctx.beginPath();
+        ctx.lineWidth = "10";
+        ctx.rect(this.x, this.y, this.width, this.height);
+        ctx.stroke();
+        ctx.closePath();
+
+        ctx.fillStyle = "#FF6100";
+        ctx.fillRect(this.x, this.y, this.width, this.height);
+
+        this.gameOverScreen_elements.forEach(elem => elem.draw(ctx));
     }
 }

@@ -1,5 +1,5 @@
 import {Player} from "./Obstacle.js"
-import {Background_Image_Handler, TextContainer} from "./Container.js"
+import {Background_Image_Handler, TextContainer, GameOverScreen} from "./Container.js"
 import {Normal_Pipe, Up_And_Down_Pipe, Corridor_Pipe, Closing_Pipe} from "./Pipes.js"
 
 export class Game
@@ -19,6 +19,9 @@ export class Game
         this.background_image.draw(this.ctx);
 
         this.setup_score_display(this.width / 2 - 10, 50, 60, 60);
+        this.gameOverScreen = new GameOverScreen(250, 50, 300, 300);
+
+        new TextContainer(100, 50, 600, 35, "Drücke die Leertaste, um mit dem Spiel zu beginnen!", "25px Impact", "LightGray").draw(this.ctx);
     }
 
     setup_controls()
@@ -32,9 +35,13 @@ export class Game
 
         //console.log(this.player.y + " " + this.screen.height + " " + this.gameOver);
 
+        
         if(event.key === " " || event.key === "Spacebar")
         {
             event.preventDefault();
+
+            if(event.repeat) return;
+
             if(this.gameOver)
             {
                 if(this.player.y > this.screen.height) this.start_game();
@@ -55,6 +62,7 @@ export class Game
         this.player = new Player(200, 300, 70, 49);
         this.gameOver = false;
         this.score_display.text = 0;
+        this.gameOverScreen.update(0);
 
         this.gameloop();
 
@@ -79,6 +87,9 @@ export class Game
             this.draw();  
             this.gameOver = this.check_gameOver() || this.gameOver;
         }
+        else{
+            this.gameOverScreen.draw(this.ctx);
+        }
     }
 
     update_obstacles()
@@ -101,7 +112,7 @@ export class Game
         let end_of_first_obstacle = this.obstacles[0].x + this.obstacles[0].width 
         if(this.player.x-3 < end_of_first_obstacle && end_of_first_obstacle < this.player.x)
         {
-            this.score_display.text++;
+            this.gameOverScreen.update(++this.score_display.text)
         }
 
         //console.log(this.obstacles[0].out_of_screen() + " " + this.obstacles[0].x +" " + this.obstacles[0].width);

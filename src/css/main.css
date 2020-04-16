@@ -1,6 +1,8 @@
 body {
     text-align: center;
     background: linear-gradient(0deg, red, yellow);
+    margin:0;
+    padding: 0;
 }
 
 header {
@@ -62,13 +64,14 @@ header {
     height : 300px;
 
     border-top: 0px;
+    border-bottom: 0;
 }
 
 #trenner {
     width: 100vw;
     height: 200px;
-    padding:0;
-    margin:0;
+    padding: -20px;
+    margin-left: -20px;
     border-spacing: 0, 0;
 }
 
