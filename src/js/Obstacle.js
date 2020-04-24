@@ -3,11 +3,13 @@ import { Image_Container, Container } from "./Container.js";
 
 export class Abstract_Obstacle extends Container {
 
-    //soll true zurückgeben, falls der Spieler mit dem Objekt zusammenstößt, sonst false
+    //soll true zurückgeben, falls das rect (der Spieler) mit dem Objekt zusammenstößt, sonst false
     collision(rect){}
 
+    //soll true zurückgeben, falls das Object vollständig auf dem Screen zu sehen ist
     completly_shown() {}
 
+    //soll true zurückgeben, falls das Object vollständig aus dem Screen draußen ist
     out_of_screen(){}
 }
 

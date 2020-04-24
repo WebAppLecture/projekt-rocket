@@ -99,30 +99,16 @@ header {
     background: linear-gradient(0deg, blue 50%, LightGray 90%, blue 100%);
     margin: -100px;
     margin-bottom: 0px;
+
+    animation: animation_aufsatz 1.8s normal linear infinite;
 }
 
-#aufsatz_links {
-    animation: animation_aufsatz_links 1.8s normal linear infinite;
-}
-
-#aufsatz_rechts{
-    animation: animation_aufsatz_rechts 1.8s normal linear infinite;
-}
-
-@keyframes animation_aufsatz_links {
+@keyframes animation_aufsatz {
     0%{transform : translate(0, 0);}
     25%{transform : translate(-50px, 0);}
     75%{transform: translate(50px, 0);}
     100%{transform: translate(0, 0);}
 }
-
-@keyframes animation_aufsatz_rechts {
-    0%{transform : translate(0, 0);}
-    25%{transform : translate(-50px, 0);}
-    75%{transform: translate(50px, 0);}
-    100%{transform: translate(0, 0);}
-}
-
 
 .difficulty_col {
     width: 31%;
